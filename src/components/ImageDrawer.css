@@ -1,0 +1,17 @@
+.image-drawer {
+  padding: 20px;
+}
+
+.drawer-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.drawer-buttons button {
+  background-color: #6200ea;
+  color: white;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 4px;
+}

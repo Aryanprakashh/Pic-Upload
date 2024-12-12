@@ -1,0 +1,13 @@
+.image-upload {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.image-upload button {
+  background-color: #6200ea;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
