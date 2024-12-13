@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import { Button } from "@mui/material";
 import "./ImageDrawer.css";
+import getCroppedImg from "../utils/cropImage";
 
-const ImageDrawer = ({ image, onClose }) => {
+const ImageDrawer = ({ image, onClose, onCropComplete }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [flipX, setFlipX] = useState(false);
   const [flipY, setFlipY] = useState(false);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const handleCropComplete = (croppedArea, croppedAreaPixels) => {
-    // Handle crop logic here
-  };
+  const handleCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
 
   const handleRotate = () => {
     setRotation((prevRotation) => prevRotation + 90);
@@ -25,8 +27,14 @@ const ImageDrawer = ({ image, onClose }) => {
     setFlipY((prevFlipY) => !prevFlipY);
   };
 
-  const handleReplace = () => {
-    onClose();
+  const handleCrop = async () => {
+    try {
+      const croppedImage = await getCroppedImg(image, croppedAreaPixels, rotation, flipX, flipY);
+      onCropComplete(croppedImage);
+      onClose();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -52,7 +60,8 @@ const ImageDrawer = ({ image, onClose }) => {
         <Button onClick={handleRotate}>Rotate</Button>
         <Button onClick={handleFlipX}>Flip Horizontal</Button>
         <Button onClick={handleFlipY}>Flip Vertical</Button>
-        <Button onClick={handleReplace}>Replace</Button>
+        <Button onClick={handleCrop}>Enter</Button>
+        <Button onClick={onClose}>Cancel</Button>
       </div>
     </div>
   );

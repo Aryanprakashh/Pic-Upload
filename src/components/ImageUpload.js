@@ -16,7 +16,11 @@ const ImageUpload = ({ onUpload }) => {
 
   const handleCloseDrawer = () => {
     setDrawerOpen(false);
-    onUpload(image);
+  };
+
+  const handleCropComplete = (croppedImage) => {
+    setImage(croppedImage);
+    onUpload(croppedImage);
   };
 
   return (
@@ -35,8 +39,9 @@ const ImageUpload = ({ onUpload }) => {
         </Button>
       </label>
       <Drawer anchor="right" open={drawerOpen} onClose={handleCloseDrawer}>
-        <ImageDrawer image={image} onClose={handleCloseDrawer} />
+        <ImageDrawer image={image} onClose={handleCloseDrawer} onCropComplete={handleCropComplete} />
       </Drawer>
+      {image && <img src={image} alt="Cropped" className="cropped-image" />}
     </div>
   );
 };
