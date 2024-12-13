@@ -6,8 +6,8 @@ import "./ImageDrawer.css";
 const ImageDrawer = ({ image, onClose }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
-  const [flipX, setFlipX] = useState(1);
-  const [flipY, setFlipY] = useState(1);
+  const [flipX, setFlipX] = useState(false);
+  const [flipY, setFlipY] = useState(false);
 
   const handleCropComplete = (croppedArea, croppedAreaPixels) => {
     // Handle crop logic here
@@ -18,11 +18,11 @@ const ImageDrawer = ({ image, onClose }) => {
   };
 
   const handleFlipX = () => {
-    setFlipX((prevFlipX) => -prevFlipX);
+    setFlipX((prevFlipX) => !prevFlipX);
   };
 
   const handleFlipY = () => {
-    setFlipY((prevFlipY) => -prevFlipY);
+    setFlipY((prevFlipY) => !prevFlipY);
   };
 
   const handleReplace = () => {
@@ -31,16 +31,23 @@ const ImageDrawer = ({ image, onClose }) => {
 
   return (
     <div className="image-drawer">
-      <Cropper
-        image={image}
-        crop={crop}
-        rotation={rotation}
-        zoom={1}
-        aspect={4 / 3}
-        onCropChange={setCrop}
-        onCropComplete={handleCropComplete}
-        style={{ transform: `scaleX(${flipX}) scaleY(${flipY})` }}
-      />
+      <div
+        className="cropper-wrapper"
+        style={{
+          transform: `scaleX(${flipX ? -1 : 1}) scaleY(${flipY ? -1 : 1})`,
+          transition: "transform 0.3s ease-in-out",
+        }}
+      >
+        <Cropper
+          image={image}
+          crop={crop}
+          rotation={rotation}
+          zoom={1}
+          aspect={4 / 3}
+          onCropChange={setCrop}
+          onCropComplete={handleCropComplete}
+        />
+      </div>
       <div className="drawer-buttons">
         <Button onClick={handleRotate}>Rotate</Button>
         <Button onClick={handleFlipX}>Flip Horizontal</Button>
