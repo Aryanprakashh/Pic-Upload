@@ -1,13 +1,22 @@
 .image-upload {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin: 20px;
 }
 
 .image-upload button {
-  background-color: #6200ea;
+  background-color: #bbb3c7;
   color: white;
-  font-size: 16px;
+  font-size: 20px;
   padding: 10px 20px;
   border-radius: 4px;
+}
+
+.hello-message {
+  padding-top: 50px;
+  font-size: 2em;
+  color: #000000;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  margin-bottom: 20px;
 }

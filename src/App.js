@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import ImageUpload from "./components/ImageUpload";
-import MasonryImageList from "./components/MasonryImageList";
-import "./App.css";
+import React, { useState } from 'react';
+import ImageUpload from './components/ImageUpload';
+import MasonryImageList from './components/MasonryImageList';
+import './App.css';
 
 const App = () => {
   const [images, setImages] = useState([]);

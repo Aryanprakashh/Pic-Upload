@@ -21,6 +21,7 @@ const ImageUpload = ({ onUpload }) => {
 
   return (
     <div className="image-upload">
+      <h2 className="hello-message">Upload Your Image Here.</h2>
       <input
         accept="image/*"
         style={{ display: "none" }}
